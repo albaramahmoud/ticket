@@ -31,10 +31,13 @@ public class JwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticat
 
     @SuppressWarnings("unchecked")
     List<String> roles = (List<String>)realmAccess.get("roles");
-
+// Remove the .filter() line and change the .map() line:
     return roles.stream()
-        .filter(role -> role.startsWith("ROLE_"))
-        .map(SimpleGrantedAuthority::new)
-        .collect(Collectors.toList());
+            .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+            .collect(Collectors.toList());
+//    return roles.stream()
+//        .filter(role -> role.startsWith("ROLE_"))
+//        .map(SimpleGrantedAuthority::new)
+//        .collect(Collectors.toList());
   }
 }
