@@ -21,11 +21,11 @@ import com.albara.ticket.exceptions.UserNotFoundException;
 import com.albara.ticket.repositories.EventRepository;
 import com.albara.ticket.repositories.UserRepository;
 import com.albara.ticket.services.EventService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.function.Function;
@@ -75,12 +75,14 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Page<ListEventResponseDto> listEventsForOrganizer(UUID organizerId, Pageable pageable) {
     return eventRepository.findByOrganizerId(organizerId, pageable)
         .map(eventMapper::toListEventResponseDto);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Optional<GetEventDetailsResponseDto> getEventForOrganizer(UUID organizerId, UUID id) {
     return eventRepository.findByIdAndOrganizerId(id, organizerId)
         .map(eventMapper::toGetEventDetailsResponseDto);
@@ -162,18 +164,24 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
+  @Transactional(readOnly = true)
+
   public Page<ListPublishedEventResponseDto> listPublishedEvents(Pageable pageable) {
     return eventRepository.findByStatus(EventStatusEnum.PUBLISHED, pageable)
         .map(eventMapper::toListPublishedEventResponseDto);
   }
 
   @Override
+  @Transactional(readOnly = true)
+
   public Page<ListPublishedEventResponseDto> searchPublishedEvents(String query, Pageable pageable) {
     return eventRepository.searchEvents(query, pageable)
         .map(eventMapper::toListPublishedEventResponseDto);
   }
 
   @Override
+  @Transactional(readOnly = true)
+
   public Optional<GetPublishedEventDetailsResponseDto> getPublishedEvent(UUID id) {
     return eventRepository.findByIdAndStatus(id, EventStatusEnum.PUBLISHED)
         .map(eventMapper::toGetPublishedEventDetailsResponseDto);

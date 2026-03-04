@@ -10,9 +10,9 @@ import com.albara.ticket.repositories.QrCodeRepository;
 import com.albara.ticket.repositories.TicketRepository;
 import com.albara.ticket.repositories.TicketValidationRepository;
 import com.albara.ticket.services.TicketValidationService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
