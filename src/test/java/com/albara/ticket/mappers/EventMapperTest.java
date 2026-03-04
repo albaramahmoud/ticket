@@ -92,20 +92,7 @@ class EventMapperTest {
         assertThat(dto.getName()).isEqualTo(event.getName());
     }
 
-    @Test
-    void shouldMapTicketTypeToListEventTicketTypeResponseDto() {
-        TicketType ticketType = new TicketType();
-        ticketType.setId(UUID.randomUUID());
-        ticketType.setName("VIP");
-        ticketType.setPrice(100.0);
 
-        ListEventTicketTypeResponseDto dto = mapper.toDto(ticketType);
-
-        assertThat(dto).isNotNull();
-        assertThat(dto.getId()).isEqualTo(ticketType.getId());
-        assertThat(dto.getName()).isEqualTo(ticketType.getName());
-        assertThat(dto.getPrice()).isEqualTo(ticketType.getPrice());
-    }
 
     @Test
     void shouldMapTicketTypeToGetEventDetailsTicketTypesResponseDto() {

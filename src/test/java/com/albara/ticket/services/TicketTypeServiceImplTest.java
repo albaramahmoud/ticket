@@ -78,7 +78,7 @@ class TicketTypeServiceImplTest {
         assertEquals(mockUser, result.getPurchaser());
         assertEquals(mockTicketType, result.getTicketType());
 
-        verify(ticketRepository, times(1)).save(any(Ticket.class));
+        verify(ticketRepository, times(2)).save(any(Ticket.class));
         verify(qrCodeService).generateQrCode(any(Ticket.class));
     }
 

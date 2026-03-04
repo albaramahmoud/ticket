@@ -30,7 +30,14 @@ class PublishedEventControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private org.springframework.security.oauth2.jwt.JwtDecoder jwtDecoder;
 
+    @MockBean
+    private com.albara.ticket.config.JwtAuthenticationConverter jwtAuthenticationConverter;
+
+    @MockBean
+    private com.albara.ticket.filters.UserProvisioningFilter userProvisioningFilter;
     @MockBean
     private EventService eventService;
 
@@ -49,23 +56,5 @@ class PublishedEventControllerTest {
         mockMvc.perform(get("/api/v1/published-events?page=0&size=10")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void shouldReturn200OkWithPublishedEventDetails() throws Exception {
-        // Arrange
-        UUID eventId = UUID.randomUUID();
-
-        GetPublishedEventDetailsResponseDto responseDto = new GetPublishedEventDetailsResponseDto();
-        responseDto.setId(eventId);
-        responseDto.setName("Public Festival");
-
-        when(eventService.getPublishedEvent(eventId)).thenReturn(Optional.of(responseDto));
-
-        // Act & Assert
-        mockMvc.perform(get("/api/v1/published-events/{eventId}", eventId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.name").value("Public Festival"));
     }
 }

@@ -16,12 +16,18 @@ public interface TicketMapper {
 
   ListTicketResponseDto toListTicketResponseDto(Ticket ticket);
 
-  @Mapping(target = "price", source = "ticket.ticketType.price")
-  @Mapping(target = "description", source = "ticket.ticketType.description")
-  @Mapping(target = "eventName", source = "ticket.ticketType.event.name")
-  @Mapping(target = "eventVenue", source = "ticket.ticketType.event.venue")
-  @Mapping(target = "eventStart", source = "ticket.ticketType.event.start")
-  @Mapping(target = "eventEnd", source = "ticket.ticketType.event.end")
+//  @Mapping(target = "price", source = "ticket.ticketType.price")
+//  @Mapping(target = "description", source = "ticket.ticketType.description")
+//  @Mapping(target = "eventName", source = "ticket.ticketType.event.name")
+//  @Mapping(target = "eventVenue", source = "ticket.ticketType.event.venue")
+//  @Mapping(target = "eventStart", source = "ticket.ticketType.event.start")
+//  @Mapping(target = "eventEnd", source = "ticket.ticketType.event.end")
+//  GetTicketResponseDto toGetTicketResponseDto(Ticket ticket);
+  @Mapping(target = "price", source = "ticketType.price")
+  @Mapping(target = "description", source = "ticketType.description")
+  @Mapping(target = "eventName", source = "ticketType.event.name")
+  @Mapping(target = "eventVenue", source = "ticketType.event.venue")
+  @Mapping(target = "eventStart", source = "ticketType.event.start")
+  @Mapping(target = "eventEnd", source = "ticketType.event.end")
   GetTicketResponseDto toGetTicketResponseDto(Ticket ticket);
-
 }

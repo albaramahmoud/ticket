@@ -31,7 +31,14 @@ class TicketValidationControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @MockBean
+    private org.springframework.security.oauth2.jwt.JwtDecoder jwtDecoder;
 
+    @MockBean
+    private com.albara.ticket.config.JwtAuthenticationConverter jwtAuthenticationConverter;
+
+    @MockBean
+    private com.albara.ticket.filters.UserProvisioningFilter userProvisioningFilter;
     @MockBean
     private TicketValidationService ticketValidationService;
 

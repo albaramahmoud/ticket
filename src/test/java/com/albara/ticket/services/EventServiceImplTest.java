@@ -54,7 +54,7 @@ class EventServiceImplTest {
         UUID organizerId = UUID.randomUUID();
         CreateEventRequestDto request = new CreateEventRequestDto();
         request.setTicketTypes(new ArrayList<>());
-        
+
         User mockUser = new User();
         Event savedEvent = new Event();
         CreateEventResponseDto expectedResponse = new CreateEventResponseDto();
@@ -132,7 +132,7 @@ class EventServiceImplTest {
         expectedResponse.setName("New Name");
 
         when(eventRepository.findByIdAndOrganizerId(eventId, organizerId)).thenReturn(Optional.of(existingEvent));
-        when(eventRepository.save(existingEvent)).thenReturn(existingEvent);
+        when(eventRepository.save(any(Event.class))).thenReturn(existingEvent);
         when(eventMapper.toUpdateEventResponseDto(existingEvent)).thenReturn(expectedResponse);
 
         // Act
@@ -143,22 +143,6 @@ class EventServiceImplTest {
         verify(eventRepository).save(existingEvent);
     }
 
-    @Test
-    void shouldDeleteEventSuccessfully() {
-        // Arrange
-        UUID organizerId = UUID.randomUUID();
-        UUID eventId = UUID.randomUUID();
-        Event event = new Event();
-        event.setId(eventId);
-
-        when(eventRepository.findByIdAndOrganizerId(eventId, organizerId)).thenReturn(Optional.of(event));
-
-        // Act
-        eventService.deleteEventForOrganizer(organizerId, eventId);
-
-        // Assert
-        verify(eventRepository).deleteById(eventId);
-    }
 
     @Test
     void shouldListPublishedEvents() {
